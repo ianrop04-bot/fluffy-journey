@@ -135,7 +135,7 @@ setInterval(() => {
 
 // ============ API ENDPOINTS (FIXED) ============
 
-app.get('/', (req, res) => {
+app.get('/g', (req, res) => {
     res.json({ message: 'Creative Hub Bot 🔵 Online' });
 });
 
