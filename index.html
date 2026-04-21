@@ -4,17 +4,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MIFRENCE TECH</title>
+  <title>WhatsApp Bot Test</title>
 </head>
-<body>
-  <p id="status">Loading...</p>
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-shadow: border-box;
+  }
+  body{
+    background-image:url("4f78eec81bb4e998dc7ef6b50377b45c.jpg");
+    background-size: 400px 400px;
+    
+  }
+  .container{
+    background:rgba(225, 225, 225, 0.1);
+    backdrop-filter: blur(15px);
+    margin:10px;
+    padding:20px;
+    border-radius: 15px;
+  }
+  .inputdiv{
+    background:rgba(48, 44, 44, 1);
+    margin:10px;
+    border-radius: 15px;
+    display: flex;
+    color:white;
+    padding:10px;
+    text-shadow: 0px 0px 20px #0867FF,
+    0px 0px 30px #0867FF,
+    0px 0px 40px #0867FF;
+  }
+  #status{
+    text-shadow: 
+0 0 20 #0867FF,
+0 0 30 #0867FF,
+0 0 40 #0867FF;
+  }
+  #tel{
+    outline: none;
+    color:#0015FF;
+    font-family: monospace;
   
+    font-size: 20px;
+    
+    border:none;
+    background: transparent;
+  }
+  button{
+    background: #003DFF;
+    width:50%;
+    padding:10px;
+    margin:10px;
+    border-radius:20px;
+    color:white;
+    font-weight:20px;
+    border:none;
+    font-size:16px;
+    transition:10s ease;
+  }
+  button:active{
+    background:#082379;
+  }
+  button:hover{
+    transform:rotateY(360deg);
+  }
+  .highlighted{
+    background :;
+    backdrop-filter: blur(15px);
+    color:#03FF15;
+    padding:5px;
+    margin:5px;
+    border-radius: 15px;
+    box-shadow:inset 0px 2px 20px #03FFF8 ;
+    border: 2px solid #03C4FF;
+  }
+  .merror{
+    backdrop-filter: blur(15px);
+    color:red;
+    padding:5px;
+    margin:5px;
+    border-radius: 15px;
+    box-shadow:inset 0px 2px 20px #FF6666;
+    border: 2px solid red;
+  }
+  .msuccess{
+    backdrop-filter: blur(15px);
+    color:#03FF15;
+    padding:5px;
+    margin:5px;
+    border-radius: 15px;
+    box-shadow:inset 0px 2px 20px #13B400;
+    border: 2px solid green;
+  }
+</style>
+<body>
+  <div class="container">
+    <h2><em>♣ CreativeHub Test Bot</em></h2>
+    <p>Enter Phone Without +</p>
+    <div class="inputdiv">
+      + 
+    <input type="tel" placeholder="Enter Number" id="tel">
+    </div>
+        <div class="highlighted">Status : <span id="status">Not Connected</span></div>
+        <p id="identify"></p>
+    <button onclick="pair()">Pair Code</button>
+    <div id="pairCode"></div>
+  </div>
   <script>
-    fetch('/item')
-        .then(response => response.json())
-      .then(data => {
-        document.getElementById('message').textContent = data.message;
-      });
+  
+    const API = 'https://fluffy-journey-bice.vercel.app'
+    
+    fetch(`${API}/get`)
+    .then(response => response.json())
+    .then(data => {
+    document.getElementById('status').textContent= `${data.message}`
+    })
+    function showm(type, content){
+      const recog = document.getElementById('identify')
+      recog.textContent= content
+      recog.className=`m${type}`
+    }
+    async function pair(){
+      
+  try{
+     const pnumber = document.getElementById('tel').value;
+     if(!pnumber){
+       showm('error','Please phone Number Required')
+       return;
+     }
+    const response =await fetch(`${API}/pair`,{
+      method:"POST",
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({number:pnumber})
+    })
+    const data = response.json()
+    const d = document.getElementById('pairCode')
+    
+    d.innerHTML= data.success ? 'pair' : 'not pair'
+  }catch(e){
+    showm('error','Error'+ e.message)
+  }
+    }
   </script>
 </body>
 </html>
