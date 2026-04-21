@@ -5,7 +5,6 @@ import fs from 'fs';
 import path from 'path';
 
 const app = express();
-const __dirname = path.dirname(__filename);
 
 app.use(cors());
 app.use(express.json());
@@ -136,9 +135,7 @@ setInterval(() => {
 }, 300000);
 
 // ============ API ENDPOINTS (FIXED) ============
-app.use('/pair', async (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
+
 app.get('/g', (req, res) => {
     res.json({ message: 'Creative Hub Bot 🔵 Online' });
 });
