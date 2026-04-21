@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { default as makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion } from '@whiskeysockets/baileys';
 import fs from 'fs';
-impost path from 'path';
+import path from 'path';
 
 const app = express();
 const __dirname = path.dirname(__filename);
@@ -136,7 +136,7 @@ setInterval(() => {
 }, 300000);
 
 // ============ API ENDPOINTS (FIXED) ============
-app.use('/', async (req, res) => {
+app.use('/pair', async (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/g', (req, res) => {
