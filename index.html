@@ -115,7 +115,7 @@
   
     const API = 'https://fluffy-journey-bice.vercel.app'
     
-    fetch(`${API}/get`)
+    fetch(`/get`)
     .then(response => response.json())
     .then(data => {
     document.getElementById('status').textContent= `${data.message}`
@@ -133,7 +133,7 @@
        showm('error','Please phone Number Required')
        return;
      }
-    const response =await fetch(`${API}/pair`,{
+    const response =await fetch(`/pair`,{
       method:"POST",
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({number:pnumber})
