@@ -3,13 +3,21 @@ import cors from 'cors';
 import { default as makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion } from '@whiskeysockets/baileys';
 import fs from 'fs';
 import path from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Add this AFTER your app.use() lines
+
+// Your existing routes...
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-let sock = null;
+
 
 async function startBot() {
     try {
@@ -23,7 +31,7 @@ async function startBot() {
         const { state, saveCreds } = await useMultiFileAuthState(authFolder);
         const { version } = await fetchLatestBaileysVersion();
         
-        sock = makeWASocket({
+        const sock = makeWASocket({
             version,
             printQRInTerminal: false,
             auth: state,
@@ -140,6 +148,9 @@ app.get('/g', (req, res) => {
     res.json({ message: 'Creative Hub Bot 🔵 Online' });
 });
 
+app.use('/', async (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 app.get('/get', (req, res) => {
     res.json({ message: 'Creative Hub Bot 🔵 Online' });
 });
