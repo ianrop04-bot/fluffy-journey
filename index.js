@@ -92,7 +92,7 @@ _.alive_
                     msg.message.imageMessage?.caption || '';
                     
                 console.log(`Message From: ${sender} text: ${text}`);
-                const m246 = '~' + text.toLowerCase();
+                const m246 = text.toLowerCase();
                 
                 if (m246.includes('menu')) {
                     await sock.sendMessage(sender, {
@@ -148,7 +148,7 @@ app.get('/g', (req, res) => {
     res.json({ message: 'Creative Hub Bot 🔵 Online' });
 });
 
-app.use('/', async (req, res) => {
+app.use('/p', async (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/get', (req, res) => {
